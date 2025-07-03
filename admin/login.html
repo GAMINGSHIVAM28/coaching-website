@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Pathak Coaching</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        :root {
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --primary: #312e81;
+            --primary-light: #a5b4fc;
+            --primary-dark: #1e1b4b;
+            --accent: #06b6d4;
+            --danger: #dc2626;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --text-light: #f8fafc;
+            --text-dark: #1e293b;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 24px rgba(49, 46, 129, 0.08);
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem 2rem 2rem 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 18px;
+            color: var(--primary);
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            margin: 0 0 28px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 500;
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: #fff;
+        }
+
+        button {
+            background: var(--primary);
+            color: var(--text-light);
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+        }
+
+        .error {
+            color: var(--danger);
+            margin-top: 5px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(6,182,212,.2);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 1.5rem 0.7rem 1.2rem 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        </svg>
+        <h1>Pathak Coaching Admin Portal</h1>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+                <div class="error" id="usernameError">Please enter a valid username</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                <div class="error" id="passwordError">Please enter your password</div>
+            </div>
+            
+            <button type="submit" id="loginBtn">
+                <span id="btnText">Login</span>
+                <span class="spinner" id="spinner"></span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            let isValid = true;
+            
+            // Reset errors
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+            
+            // Validate username
+            if (username === '') {
+                document.getElementById('usernameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate password
+            if (password === '') {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show loading state
+                document.getElementById('btnText').textContent = 'Logging in...';
+                document.getElementById('spinner').style.display = 'inline-block';
+                document.getElementById('loginBtn').disabled = true;
+                
+                // Simulate login request (replace with actual authentication)
+                setTimeout(() => {
+                    // For demo purposes, accept any non-empty credentials
+                    if (username && password) {
+                        // Store login state in localStorage
+                        localStorage.setItem('isAuthenticated', 'true');
+                        localStorage.setItem('username', username);
+                        
+                        // Redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        document.getElementById('btnText').textContent = 'Login';
+                        document.getElementById('spinner').style.display = 'none';
+                        document.getElementById('loginBtn').disabled = false;
+                        alert('Invalid credentials. Please try again.');
+                    }
+                }, 1000);
+            }
+        });
+        
+        // Check if already logged in
+        if (localStorage.getItem('isAuthenticated') === 'true') {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

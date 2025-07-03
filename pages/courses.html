@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Courses | Pathak Coaching</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .courses-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .courses-header h1 {
+            color: var(--primary);
+        }
+
+        .courses-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-dark);
+        }
+
+        .course-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 2rem;
+            background: transparent;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-img {
+            height: 180px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 3rem;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            color: var(--text-dark);
+        }
+
+        .course-price {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .course-duration {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .course-desc {
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .no-courses {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 2rem;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-graduation-cap"></i> Pathak Coaching</h1>
+        <nav>
+            <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="courses.html" class="active"><i class="fas fa-book"></i> Courses</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="register.html"><i class="fas fa-user-plus"></i> Register</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="courses-header">
+            <h1>Our Courses</h1>
+            <p>Choose from our wide range of courses designed to help you achieve academic excellence and prepare for competitive exams.</p>
+        </div>
+
+        <div class="course-filters">
+            <button class="filter-btn active" data-filter="all">All Courses</button>
+            <button class="filter-btn" data-filter="science">Science</button>
+            <button class="filter-btn" data-filter="math">Mathematics</button>
+            <button class="filter-btn" data-filter="commerce">Commerce</button>
+        </div>
+
+        <div class="course-grid" id="courses-container">
+            <!-- Courses will be loaded here -->
+        </div>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> Pathak Coaching. All rights reserved.
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Sample course data
+        const courses = [
+            { 
+                id: 1, 
+                title: "Mathematics", 
+                description: "Comprehensive course covering algebra, geometry, calculus, and more.", 
+                price: 3000, 
+                duration: "3 months", 
+                category: "math",
+                icon: "square-root-alt"
+            },
+            { 
+                id: 2, 
+                title: "Physics", 
+                description: "Master the fundamentals of physics with practical applications.", 
+                price: 3500, 
+                duration: "4 months", 
+                category: "science",
+                icon: "atom"
+            },
+            { 
+                id: 3, 
+                title: "Chemistry", 
+                description: "Learn chemical reactions, equations, and practical chemistry.", 
+                price: 3200, 
+                duration: "3 months", 
+                category: "science",
+                icon: "flask"
+            },
+            { 
+                id: 4, 
+                title: "Accountancy", 
+                description: "Fundamentals of accounting principles and practices.", 
+                price: 2800, 
+                duration: "3 months", 
+                category: "commerce",
+                icon: "calculator"
+            }
+        ];
+
+        // Load courses
+        function loadCourses(filter = 'all') {
+            const container = document.getElementById('courses-container');
+            
+            // Filter courses
+            const filteredCourses = filter === 'all' 
+                ? courses 
+                : courses.filter(course => course.category === filter);
+            
+            if (filteredCourses.length === 0) {
+                container.innerHTML = `
+                    <div class="no-courses">
+                        <h3>No courses found in this category</h3>
+                        <p>Please check back later or contact us for more information.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredCourses.map(course => `
+                <div class="course-card" data-category="${course.category}">
+                    <div class="course-img">
+                        <i class="fas fa-${course.icon}"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>${course.title}</h3>
+                        <div class="course-meta">
+                            <span class="course-price">₹${course.price}/month</span>
+                            <span class="course-duration">
+                                <i class="far fa-clock"></i> ${course.duration}
+                            </span>
+                        </div>
+                        <p class="course-desc">${course.description}</p>
+                        <a href="register.html?course=${course.id}" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Register Now
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                loadCourses(this.dataset.filter);
+            });
+        });
+
+        // Load courses when page loads
+        document.addEventListener('DOMContentLoaded', () => loadCourses());
+    </script>
+</body>
+</html>

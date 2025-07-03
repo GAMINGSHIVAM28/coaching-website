@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Pathak Coaching</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .register-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .register-header h1 {
+            color: var(--primary);
+        }
+
+        .register-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: var(--success);
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: var(--danger);
+            border: 1px solid #fecaca;
+        }
+
+        .course-info {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .course-info h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .course-price {
+            font-weight: bold;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-graduation-cap"></i> Pathak Coaching</h1>
+        <nav>
+            <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="courses.html"><i class="fas fa-book"></i> Courses</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="register.html" class="active"><i class="fas fa-user-plus"></i> Register</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="register-container">
+            <div class="register-header">
+                <h1><i class="fas fa-user-edit"></i> Student Registration</h1>
+                <p>Fill out the form below to register for our courses</p>
+            </div>
+
+            <div class="alert alert-success" id="successAlert">
+                <i class="fas fa-check-circle"></i> Registration successful! We'll contact you soon.
+            </div>
+            <div class="alert alert-error" id="errorAlert">
+                <i class="fas fa-exclamation-circle"></i> There was an error with your registration. Please try again.
+            </div>
+
+            <div id="courseDetails" class="course-info" style="display: none;">
+                <h3 id="courseTitle"></h3>
+                <p id="courseDescription"></p>
+                <div class="course-meta">
+                    <span id="courseDuration"></span>
+                    <span class="course-price" id="coursePrice"></span>
+                </div>
+            </div>
+
+            <form id="registrationForm" class="register-form">
+                <input type="hidden" id="courseId">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="education">Education Level</label>
+                    <select id="education" class="form-control" required>
+                        <option value="">Select Education Level</option>
+                        <option value="highschool">High School</option>
+                        <option value="secondary">Secondary (10th)</option>
+                        <option value="senior_secondary">Senior Secondary (12th)</option>
+                        <option value="graduate">Graduate</option>
+                        <option value="post_graduate">Post Graduate</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Registration
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> Pathak Coaching. All rights reserved.
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Sample course data
+        const courses = [
+            { 
+                id: 1, 
+                title: "Mathematics", 
+                description: "Comprehensive course covering algebra, geometry, calculus, and more.", 
+                price: "₹3000/month", 
+                duration: "3 months"
+            },
+            { 
+                id: 2, 
+                title: "Physics", 
+                description: "Master the fundamentals of physics with practical applications.", 
+                price: "₹3500/month", 
+                duration: "4 months"
+            },
+            { 
+                id: 3, 
+                title: "Chemistry", 
+                description: "Learn chemical reactions, equations, and practical chemistry.", 
+                price: "₹3200/month", 
+                duration: "3 months"
+            },
+            { 
+                id: 4, 
+                title: "Accountancy", 
+                description: "Fundamentals of accounting principles and practices.", 
+                price: "₹2800/month", 
+                duration: "3 months"
+            }
+        ];
+
+        // Check for course ID in URL
+        function checkForCourse() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('course');
+            
+            if (courseId) {
+                const course = courses.find(c => c.id == courseId);
+                if (course) {
+                    document.getElementById('courseDetails').style.display = 'block';
+                    document.getElementById('courseTitle').textContent = course.title;
+                    document.getElementById('courseDescription').textContent = course.description;
+                    document.getElementById('coursePrice').textContent = course.price;
+                    document.getElementById('courseDuration').textContent = `Duration: ${course.duration}`;
+                    document.getElementById('courseId').value = course.id;
+                }
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide alerts
+            document.getElementById('successAlert').style.display = 'none';
+            document.getElementById('errorAlert').style.display = 'none';
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const education = document.getElementById('education').value;
+            const courseId = document.getElementById('courseId').value || null;
+            
+            // Validation
+            if (!firstName || !lastName || !email || !phone || !education) {
+                document.getElementById('errorAlert').innerHTML = '<i class="fas fa-exclamation-circle"></i> Please fill in all required fields.';
+                document.getElementById('errorAlert').style.display = 'block';
+                return;
+            }
+            
+            // Email validation
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('errorAlert').innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email address.';
+                document.getElementById('errorAlert').style.display = 'block';
+                return;
+            }
+            
+            // Phone validation (simple)
+            if (!/^[0-9]{10,15}$/.test(phone)) {
+                document.getElementById('errorAlert').innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid phone number.';
+                document.getElementById('errorAlert').style.display = 'block';
+                return;
+            }
+            
+            // Simulate form submission (replace with actual AJAX call)
+            setTimeout(() => {
+                // Save to local DB
+                const students = JSON.parse(localStorage.getItem('students') || []);
+                students.push({
+                    id: Date.now(),
+                    firstName,
+                    lastName,
+                    email,
+                    phone,
+                    address,
+                    education,
+                    courseId,
+                    registeredAt: new Date().toISOString()
+                });
+                localStorage.setItem('students', JSON.stringify(students));
+                
+                // Show success message
+                document.getElementById('successAlert').style.display = 'block';
+                this.reset();
+                
+                // Redirect after 3 seconds
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 3000);
+            }, 1000);
+        });
+
+        // Check for course when page loads
+        document.addEventListener('DOMContentLoaded', checkForCourse);
+    </script>
+</body>
+</html>

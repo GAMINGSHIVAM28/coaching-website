@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathak Coaching</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .hero {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-img {
+            height: 180px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 3rem;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .course-content p {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-graduation-cap"></i> Pathak Coaching</h1>
+        <nav>
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="pages/courses.html"><i class="fas fa-book"></i> Courses</a>
+            <a href="pages/contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="pages/register.html"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="admin/login.html"><i class="fas fa-lock"></i> Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Quality Education for All</h2>
+            <p>Join our coaching center to unlock your potential and achieve academic excellence with our expert guidance.</p>
+        </section>
+
+        <section class="card">
+            <h2 class="text-center">Our Popular Courses</h2>
+            <div class="courses-grid" id="courses-container">
+                <!-- Courses will be loaded here -->
+            </div>
+        </section>
+
+        <section class="card">
+            <h2 class="text-center">Why Choose Us?</h2>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Expert Faculty</h3>
+                    <p>Learn from experienced and qualified teachers who are passionate about education.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Comprehensive Curriculum</h3>
+                    <p>Well-structured courses covering all essential topics with practical applications.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <h3>Personal Attention</h3>
+                    <p>Small batch sizes ensuring individual attention to every student.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> Pathak Coaching. All rights reserved.
+    </footer>
+
+    <script>
+        // Load courses from DB
+        function loadCourses() {
+            const courses = [
+            { id: 1, title: "Mathematics", description: "Master mathematical concepts from basics to advanced topics.", price: 3000 },
+            { id: 2, title: "Physics", description: "Understand fundamental principles and problem-solving techniques.", price: 3500 },
+            { id: 3, title: "Chemistry", description: "Explore chemical reactions, equations, and practical applications.", price: 3200 }
+            ];
+
+            const container = document.getElementById('courses-container');
+            container.innerHTML = courses.map(course => `
+            <div class="course-card">
+                <div class="course-img">
+                <i class="fas fa-${course.title === 'Mathematics' ? 'square-root-alt' : course.title === 'Physics' ? 'atom' : 'flask'}"></i>
+                </div>
+                <div class="course-content">
+                <h3>${course.title}</h3>
+                <p>${course.description}</p>
+                <p><strong>Price: ₹${course.price}/month</strong></p>
+                <a href="pages/register.html?course=${course.id}" class="btn btn-primary">Register Now</a>
+                </div>
+            </div>
+            `).join('');
+        } 
+
+        // Google AdSense code (replace ca-pub-xxxxxxxxxxxxxxxx with your publisher ID)
+        document.addEventListener('DOMContentLoaded', function() {
+            const adDiv = document.createElement('div');
+            adDiv.style = "margin:2rem 0;text-align:center;";
+            adDiv.innerHTML = `
+            <!-- Google AdSense -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+                data-ad-slot="1234567890"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            `;
+            // Insert ad after courses section
+            const coursesSection = document.querySelector('.courses-grid');
+            if (coursesSection && coursesSection.parentElement) {
+            coursesSection.parentElement.appendChild(adDiv);
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Load courses when DOM is ready
+        document.addEventListener('DOMContentLoaded', loadCourses);
+    </script>
+</body>
+</html>
