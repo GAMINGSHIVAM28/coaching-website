@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | Pathak Coaching</title>
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --sidebar-width: 250px;
@@ -22,15 +24,93 @@
             --border-color: #e2e8f0;
         }
 
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #f1f5f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(49,46,129,0.06);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            padding: 1.2rem 0;
+        }
+        header > div {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header h1 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: 0.01em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        header nav {
+            display: flex;
+            gap: 1.1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        header nav a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 7px 14px;
+            border-radius: 0.4rem;
+            transition: background 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        header nav a.active,
+        header nav a:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        main {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding-top: 120px;
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            color: #fff;
+            padding: 2.5rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 2px 12px rgba(49,46,129,0.07);
         }
 
         .login-container {
@@ -42,6 +122,10 @@
             padding: 2.5rem 2rem 2rem 2rem;
             text-align: center;
             border: 1px solid var(--border-color);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .logo {
@@ -51,7 +135,7 @@
             color: var(--primary);
         }
 
-        h1 {
+        .login-container h1 {
             color: var(--primary-dark);
             margin: 0 0 28px;
             font-size: 1.5rem;
@@ -62,6 +146,7 @@
         .form-group {
             margin-bottom: 18px;
             text-align: left;
+            width: 100%;
         }
 
         label {
@@ -81,6 +166,7 @@
             background: var(--bg-light);
             color: var(--text-dark);
             transition: border 0.3s;
+            box-sizing: border-box;
         }
 
         input:focus {
@@ -135,79 +221,130 @@
             to { transform: rotate(360deg); }
         }
 
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--primary-dark);
+            background: #fff;
+            padding: 1rem 0 1.2rem 0;
+            border-top: 1px solid var(--border-color);
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 1rem 0.5rem 0.7rem 0.5rem;
+            }
+            header h1 {
+                font-size: 1.05rem;
+            }
+            header nav {
+                gap: 0.5rem;
+            }
+            header nav a {
+                font-size: 0.98rem;
+                padding: 6px 8px;
+            }
+            header > div {
+                max-width: 98vw;
+            }
+            .hero, .login-container {
+                max-width: 98vw;
+            }
+        }
         @media (max-width: 480px) {
             .login-container {
                 padding: 1.5rem 0.7rem 1.2rem 0.7rem;
+            }
+            .hero {
+                padding: 1.2rem 0.5rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-graduation-cap"></i> Pathak Coaching</h1>
-        <nav>
-            <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
-            <a href="pages/courses.html"><i class="fas fa-book"></i> Courses</a>
-            <a href="pages/contact.html"><i class="fas fa-envelope"></i> Contact</a>
-            <a href="pages/register.html"><i class="fas fa-user-plus"></i> Register</a>
-            <a href="admin/login.html"><i class="fas fa-lock"></i> Admin</a>
-        </nav>
+        <div>
+            <h1><i class="fas fa-graduation-cap"></i> Pathak Coaching</h1>
+            <nav>
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../pages/courses.html"><i class="fas fa-book"></i> Courses</a>
+                <a href="../pages/contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="../pages/register.html"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="login.html" class="active"><i class="fas fa-lock"></i> Admin</a>
+            </nav>
+        </div>
     </header>
-    <div class="login-container">
-        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-        </svg>
-        <h1>Pathak Coaching Admin Portal</h1>
-        
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" required>
-                <div class="error" id="usernameError">Please enter a valid username</div>
+
+    <main>
+        <section class="hero">
+            <h2>Admin Portal Login</h2>
+            <p>Access the Pathak Coaching admin dashboard to manage courses, students, and more.</p>
+        </section>
+
+        <section>
+            <div class="login-container">
+                <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+                <h1>Admin Login</h1>
+                <form id="loginForm" autocomplete="off" style="width:100%;">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" autocomplete="username" required>
+                        <div class="error" id="usernameError">Please enter a valid username</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" autocomplete="current-password" required>
+                        <div class="error" id="passwordError">Please enter your password</div>
+                    </div>
+                    <button type="submit" id="loginBtn">
+                        <span id="btnText">Login</span>
+                        <span class="spinner" id="spinner"></span>
+                    </button>
+                </form>
             </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
-                <div class="error" id="passwordError">Please enter your password</div>
-            </div>
-            
-            <button type="submit" id="loginBtn">
-                <span id="btnText">Login</span>
-                <span class="spinner" id="spinner"></span>
-            </button>
-        </form>
-    </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> Pathak Coaching. All rights reserved.
+    </footer>
 
     <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Login form logic
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             let isValid = true;
-            
+
             // Reset errors
             document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
-            
+
             // Validate username
             if (username === '') {
                 document.getElementById('usernameError').style.display = 'block';
                 isValid = false;
             }
-            
+
             // Validate password
             if (password === '') {
                 document.getElementById('passwordError').style.display = 'block';
                 isValid = false;
             }
-            
+
             if (isValid) {
                 // Show loading state
                 document.getElementById('btnText').textContent = 'Logging in...';
                 document.getElementById('spinner').style.display = 'inline-block';
                 document.getElementById('loginBtn').disabled = true;
-                
+
                 // Simulate login request (replace with actual authentication)
                 setTimeout(() => {
                     // For demo purposes, accept any non-empty credentials
@@ -215,7 +352,7 @@
                         // Store login state in localStorage
                         localStorage.setItem('isAuthenticated', 'true');
                         localStorage.setItem('username', username);
-                        
+
                         // Redirect to dashboard
                         window.location.href = 'dashboard.html';
                     } else {
@@ -227,7 +364,7 @@
                 }, 1000);
             }
         });
-        
+
         // Check if already logged in
         if (localStorage.getItem('isAuthenticated') === 'true') {
             window.location.href = 'dashboard.html';
