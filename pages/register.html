@@ -263,24 +263,9 @@
             
             // Simulate form submission (replace with actual AJAX call)
             setTimeout(() => {
-                // Save to local DB
-                const students = JSON.parse(localStorage.getItem('students') || []);
-                students.push({
-                    id: Date.now(),
-                    firstName,
-                    lastName,
-                    email,
-                    phone,
-                    address,
-                    education,
-                    courseId,
-                    registeredAt: new Date().toISOString()
-                });
-                localStorage.setItem('students', JSON.stringify(students));
-                
-                // Show success message
+                // Show success message (localStorage is not used online)
                 document.getElementById('successAlert').style.display = 'block';
-                this.reset();
+                document.getElementById('registrationForm').reset();
                 
                 // Redirect after 3 seconds
                 setTimeout(() => {
